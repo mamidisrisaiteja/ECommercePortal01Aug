@@ -1,71 +1,17 @@
-name: E-Commerce Test Automation
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        echo "✅ Dependencies installed"
-    
-    - name: Install Playwright browsers
-      run: |
-        playwright install chromium --with-deps
-        echo "✅ Playwright Chromium browser installed"
-    
-    - name: Create reports directory
-      run: |
-        mkdir -p reports
-        echo "✅ Reports directory created"
-    
-    - name: Verify framework setup
-      run: |
-        python -c "import pytest; print('✅ pytest imported successfully')"
-        python -c "import playwright; print('✅ playwright imported successfully')"
-        python -c "import pytest_bdd; print('✅ pytest-bdd imported successfully')"
-        echo "✅ Framework verification completed"
-    
-    - name: List test files
-      run: |
-        echo "📂 Test structure:"
-        find . -name "*.py" -path "*/tests/*" -o -name "*.feature" | head -10
-        echo "✅ Test files listed"
-    
-    - name: Run basic pytest discovery
-      run: |
-        export HEADLESS=true
-        pytest --collect-only -q
-        echo "✅ Test discovery completed"
-      continue-on-error: true
-    
-    - name: Run tests with basic reporting
-      run: |
-        export HEADLESS=true
-        pytest -v --tb=short --html=reports/report.html --self-contained-html
-        echo "✅ Tests executed"
-      continue-on-error: true
-    
-    - name: Upload test reports
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: test-reports-${{ github.run_number }}
-        path: reports/
-        retention-days: 30
+[flake8]
+max-line-length = 127
+exclude = 
+    .git,
+    __pycache__,
+    venv,
+    .venv,
+    build,
+    dist,
+    .tox,
+    .pytest_cache
+ignore = 
+    E203,  # whitespace before ':'
+    W503,  # line break before binary operator
+    F401   # imported but unused (for __init__.py files)
+per-file-ignores =
+    __init__.py:F401
