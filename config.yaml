@@ -1,0 +1,16 @@
+base_url: "https://www.saucedemo.com"
+browser: "chromium"
+headless: false
+timeout: 30000
+wait_time: 5
+screenshot_on_failure: true
+video_on_failure: true
+
+# Test Users
+test_users:
+  valid_user:
+    username: "standard_user"
+    password: "secret_sauce"
+  invalid_user:
+    username: "standard_use"
+    password: "secret_sauce"

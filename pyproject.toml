@@ -1,0 +1,38 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--html=reports/report.html",
+    "--self-contained-html",
+    "-v"
+]
+testpaths = [
+    "tests"
+]
+python_files = [
+    "test_*.py",
+    "*_test.py"
+]
+python_classes = [
+    "Test*"
+]
+python_functions = [
+    "test_*"
+]
+markers = [
+    "auth: Authentication related tests",
+    "inventory: Inventory related tests", 
+    "cart: Cart related tests",
+    "smoke: Smoke tests",
+    "TC_AUTH_01: Login with valid credentials test",
+    "TC_AUTH_02: Login with invalid credentials test", 
+    "TC_INV_01: Verify product listing test",
+    "TC_INV_02: Sort products by name test",
+    "TC_CART_01: View cart contents test"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
