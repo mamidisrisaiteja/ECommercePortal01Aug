@@ -25,6 +25,11 @@ jobs:
         pip install -r requirements.txt
         echo "✅ Dependencies installed"
     
+    - name: Install Playwright browsers
+      run: |
+        playwright install --with-deps
+        echo "✅ Playwright browsers installed"
+    
     - name: Create reports directory
       run: |
         mkdir -p reports
@@ -32,8 +37,10 @@ jobs:
     
     - name: Run tests with integrated report configuration
       run: |
+        # Set headless mode for CI
+        export HEADLESS=true
         # Use the report configurations from pyproject.toml
-        pytest tests/ -v --tb=short
+        pytest -v --tb=short
         echo "✅ Tests executed with HTML and XML reports generated"
       continue-on-error: true
     
