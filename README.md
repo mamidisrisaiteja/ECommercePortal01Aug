@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # E-Commerce Portal Test Automation Framework
 
 A Python-based test automation framework using Playwright, Pytest, and Cucumber BDD for testing e-commerce portal functionality.
@@ -173,3 +174,7 @@ The framework is designed to work with MCP (Model Context Protocol) servers:
 2. Add appropriate test tags for new scenarios
 3. Update documentation for new features
 4. Ensure all tests pass before submitting changes
+=======
+# ECommercePortal01Aug
+Python Playwright Pytest Cucumber BDD Test Automation Framework for E-Commerce Portal with Page Object Model design pattern, MCP server integration, and comprehensive test scenarios for authentication, inventory, and cart modules.
+>>>>>>> 7e0ebf01cec106c97ef808120c59c4e3830d8825
