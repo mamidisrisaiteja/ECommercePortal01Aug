@@ -9,6 +9,15 @@ from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
 
+def pytest_addoption(parser):
+    """Add command line options for pytest"""
+    parser.addoption(
+        "--browser-name",
+        action="store",
+        default="chromium",
+        help="Browser to use for testing (chromium, firefox, webkit)"
+    )
+
 def load_config():
     """Load configuration from config.yaml"""
     config_path = os.path.join(os.path.dirname(__file__), 'config.yaml')
@@ -20,14 +29,25 @@ def config():
     """Provide configuration data"""
     return load_config()
 
+@pytest.fixture(scope="session")
+def browser_name(request):
+    """Get browser name from command line"""
+    return request.config.getoption("--browser-name")
+
 @pytest.fixture(scope="function")
-def browser_context(config):
+def browser_context(config, browser_name):
     """Create browser context with Playwright"""
     with sync_playwright() as p:
-        browser_type = getattr(p, config.get('browser', 'chromium'))
+        # Use browser name from command line or config
+        browser_type_name = browser_name or config.get('browser', 'chromium')
+        browser_type = getattr(p, browser_type_name)
+        
+        # Use headless mode from environment variable
+        headless = os.getenv('HEADLESS', 'false').lower() == 'true'
+        
         browser = browser_type.launch(
-            headless=config.get('headless', False),
-            slow_mo=500  # Add delay for demo purposes
+            headless=headless,
+            slow_mo=500 if not headless else 0  # Add delay for demo purposes in headed mode
         )
         context = browser.new_context(
             viewport={'width': 1280, 'height': 720},

@@ -4,8 +4,6 @@ addopts = [
     "-ra",
     "--strict-markers",
     "--strict-config",
-    "--html=reports/report.html",
-    "--self-contained-html",
     "-v"
 ]
 testpaths = [
@@ -32,6 +30,24 @@ markers = [
     "TC_INV_02: Sort products by name test",
     "TC_CART_01: View cart contents test"
 ]
+
+[tool.black]
+line-length = 127
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
 
 [build-system]
 requires = ["setuptools", "wheel"]
