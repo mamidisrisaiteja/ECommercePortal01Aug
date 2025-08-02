@@ -175,6 +175,301 @@ The framework is designed to work with MCP (Model Context Protocol) servers:
 3. Update documentation for new features
 4. Ensure all tests pass before submitting changes
 =======
-# ECommercePortal01Aug
+# E-Commerce Portal Test Automation Framework
+
+[![CI/CD Pipeline](https://github.com/mamidisrisaiteja/ECommercePortal01Aug/actions/workflows/ci.yml/badge.svg)](https://github.com/mamidisrisaiteja/ECommercePortal01Aug/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Playwright](https://img.shields.io/badge/playwright-1.41.2-green.svg)](https://playwright.dev/)
+[![pytest-bdd](https://img.shields.io/badge/pytest--bdd-7.0.1-orange.svg)](https://pytest-bdd.readthedocs.io/)
+
+A comprehensive test automation framework for e-commerce portal testing using Python, Playwright, and Behavior Driven Development (BDD) with Page Object Model design pattern.
+
+## 🚀 Features
+
+- **BDD Testing**: Cucumber Gherkin syntax with pytest-bdd
+- **Page Object Model**: Maintainable and scalable test architecture
+- **Multi-Browser Support**: Chromium, Firefox, and WebKit
+- **Excel Integration**: Test data management via MCP Excel server
+- **CI/CD Ready**: GitHub Actions workflow included
+- **Comprehensive Reporting**: HTML reports with screenshots
+- **Headed/Headless Mode**: Visual debugging and fast execution
+- **Cross-Platform**: Windows, macOS, and Linux support
+
+## 📁 Project Structure
+
+```
+ECommercePortal01Aug/
+├── 📂 pages/                    # Page Object Model classes
+│   ├── base_page.py            # Base page with common functionality
+│   ├── login_page.py           # Authentication page methods
+│   ├── products_page.py        # Product catalog operations
+│   └── cart_page.py            # Shopping cart functionality
+├── 📂 features/                 # BDD feature files
+│   ├── authentication.feature  # Login/logout scenarios
+│   ├── product_browsing.feature # Product search & filter
+│   └── shopping_cart.feature   # Cart management tests
+├── 📂 step_definitions/         # BDD step implementations
+│   ├── auth_steps.py           # Authentication step definitions
+│   ├── product_steps.py        # Product browsing steps
+│   └── cart_steps.py           # Shopping cart steps
+├── 📂 tests/                    # Test runners
+│   ├── test_authentication.py  # Auth test execution
+│   ├── test_products.py        # Product test execution
+│   └── test_cart.py            # Cart test execution
+├── 📂 utilities/                # Helper functions
+│   ├── config_manager.py       # Configuration management
+│   ├── logger.py               # Logging utilities
+│   └── helpers.py              # Common helper functions
+├── 📂 TestData/                 # Test data files
+│   └── TestCaseDocument.xlsx   # Excel test scenarios
+├── 📂 .github/workflows/        # CI/CD automation
+│   └── ci.yml                  # GitHub Actions workflow
+├── config.yaml                 # Framework configuration
+├── conftest.py                 # Pytest fixtures
+├── pyproject.toml              # Project metadata
+└── requirements.txt            # Python dependencies
+```
+
+## 🛠️ Installation
+
+### Prerequisites
+
+- Python 3.9 or higher
+- Node.js (for Playwright browsers)
+- Git
+
+### Quick Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mamidisrisaiteja/ECommercePortal01Aug.git
+   cd ECommercePortal01Aug
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   # Windows
+   venv\Scripts\activate
+   # macOS/Linux
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Install Playwright browsers**
+   ```bash
+   playwright install
+   ```
+
+## 🎯 Test Execution
+
+### Run All Tests (Headed Mode)
+```bash
+pytest -v --headed
+```
+
+### Run Authentication Tests Only
+```bash
+pytest tests/test_authentication.py -v
+```
+
+### Run Tests by Tags
+```bash
+# Smoke tests only
+pytest -m smoke -v
+
+# Authentication tagged tests
+pytest -m auth -v
+```
+
+### Generate HTML Report
+```bash
+pytest --html=reports/report.html --self-contained-html
+```
+
+### Cross-Browser Testing
+```bash
+# Firefox
+pytest --browser=firefox -v
+
+# WebKit (Safari)
+pytest --browser=webkit -v
+```
+
+## 🧪 Test Scenarios
+
+### Authentication Module (TC_AUTH_01, TC_AUTH_02)
+- ✅ Valid user login
+- ✅ Invalid credential handling
+- ✅ Password field masking
+- ✅ Login button functionality
+
+### Product Browsing
+- 🔄 Product search functionality
+- 🔄 Category filtering
+- 🔄 Product detail viewing
+- 🔄 Add to cart operations
+
+### Shopping Cart
+- 🔄 Cart item management
+- 🔄 Quantity updates
+- 🔄 Remove items
+- 🔄 Checkout process
+
+*Legend: ✅ Implemented & Tested | 🔄 In Development*
+
+## ⚙️ Configuration
+
+### config.yaml Structure
+```yaml
+# Application settings
+app:
+  base_url: "https://www.saucedemo.com"
+  timeout: 30000
+
+# Test user credentials
+test_users:
+  valid_user:
+    username: "standard_user"
+    password: "secret_sauce"
+  invalid_user:
+    username: "invalid_user"
+    password: "wrong_password"
+
+# Browser settings
+browser:
+  headless: false
+  slow_mo: 500
+  viewport:
+    width: 1280
+    height: 720
+```
+
+## 🔧 MCP Server Integration
+
+This framework integrates with Model Context Protocol (MCP) servers:
+
+### Excel MCP Server
+- Reads test scenarios from `TestCaseDocument.xlsx`
+- Extracts test case IDs: TC_AUTH_01, TC_AUTH_02
+- Provides dynamic test data management
+
+### Playwright MCP Server  
+- Browser automation capabilities
+- Screenshot and PDF generation
+- Network request interception
+
+## 📊 Reporting
+
+### HTML Reports
+- Detailed test execution results
+- Screenshots on failure
+- Step-by-step BDD scenario breakdown
+- Browser and environment information
+
+### CI/CD Reports
+- Multi-browser test matrix
+- Security vulnerability scanning
+- Code quality metrics
+- Artifact preservation
+
+## 🤝 Contributing
+
+1. **Fork the repository**
+2. **Create feature branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. **Commit changes**
+   ```bash
+   git commit -m "Add your feature description"
+   ```
+4. **Push to branch**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. **Create Pull Request**
+
+### Development Guidelines
+- Follow PEP 8 style guidelines
+- Add BDD scenarios for new features
+- Include step definitions and page objects
+- Update documentation for API changes
+- Ensure all tests pass before submitting PR
+
+## 🚀 Continuous Integration
+
+### GitHub Actions Workflow
+- **Multi-Python Testing**: 3.9, 3.10, 3.11
+- **Cross-Browser Matrix**: Chromium, Firefox, WebKit
+- **Security Scanning**: Dependency vulnerability checks
+- **Code Quality**: Linting and formatting validation
+- **Artifact Upload**: Test reports and screenshots
+
+### Workflow Triggers
+- Push to `main` or `develop` branches
+- Pull request creation
+- Manual workflow dispatch
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Browser Installation Failed**
+```bash
+# Reinstall Playwright browsers
+playwright install --force
+```
+
+**Import Errors**
+```bash
+# Ensure virtual environment is activated
+pip install -r requirements.txt --force-reinstall
+```
+
+**Test Discovery Issues**
+```bash
+# Clear pytest cache
+pytest --cache-clear
+```
+
+**Step Definition Mismatches**
+```bash
+# Regenerate step definitions
+pytest --gherkin-terminal-reporter -v
+```
+
+## 📈 Performance Metrics
+
+### Test Execution Times
+- Authentication Suite: ~32 seconds (headed mode)
+- Product Browsing: ~45 seconds (headed mode)
+- Shopping Cart: ~28 seconds (headed mode)
+
+### Browser Performance
+- **Chromium**: Fastest execution, best debugging
+- **Firefox**: Memory efficient, good stability  
+- **WebKit**: Safari compatibility, mobile testing
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Playwright Team**: Excellent browser automation framework
+- **pytest-bdd**: Seamless BDD integration
+- **Microsoft**: VS Code and development tools
+- **EY Professional Services**: Testing standards and practices
+
+---
+
+**Built with ❤️ for robust e-commerce testing**
+
+*For support or questions, please open an issue or contact the development team.*
 Python Playwright Pytest Cucumber BDD Test Automation Framework for E-Commerce Portal with Page Object Model design pattern, MCP server integration, and comprehensive test scenarios for authentication, inventory, and cart modules.
 >>>>>>> 7e0ebf01cec106c97ef808120c59c4e3830d8825
