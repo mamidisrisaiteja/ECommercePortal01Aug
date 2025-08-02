@@ -4,7 +4,10 @@ addopts = [
     "-ra",
     "--strict-markers",
     "--strict-config",
-    "-v"
+    "-v",
+    "--html=reports/report.html",
+    "--self-contained-html",
+    "--junitxml=reports/junit_report.xml"
 ]
 testpaths = [
     "tests"
